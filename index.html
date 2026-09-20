@@ -59,15 +59,21 @@
     color: #b3003c;
   }
 
-  #noBtn:active {
-    transform: scale(0.95);
-  }
+  #noBtn:active { transform: scale(0.95); }
 
   #message {
     margin-top: 30px;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #b3003c;
     font-weight: bold;
+    display: none;
+    padding: 0 20px;
+  }
+
+  #player {
+    margin-top: 25px;
+    width: 100%;
+    max-width: 380px;
     display: none;
   }
 
@@ -98,24 +104,34 @@
     <button id="noBtn">No 🙈</button>
   </div>
 
-  <p id="message">Yay! Okay, get ready... 🎶💕</p>
+  <p id="message"></p>
+
+  <!-- 🎵 SPOTIFY EMBED — Perfect by Ed Sheeran -->
+  <div id="player">
+    <iframe id="spotifyPlayer"
+            style="border-radius:12px"
+            src=""
+            width="100%" height="152" frameborder="0"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"></iframe>
+  </div>
 
 <script>
   const yesBtn = document.getElementById('yesBtn');
   const noBtn = document.getElementById('noBtn');
   const message = document.getElementById('message');
+  const player = document.getElementById('player');
+  const spotifyPlayer = document.getElementById('spotifyPlayer');
 
-  // The Yes button runs away when trying to click/tap it
+  // 🎵 Perfect by Ed Sheeran on Spotify
+  const SPOTIFY_EMBED_URL = "https://open.spotify.com/embed/track/0tgVpDi06FyKpA1z0VMD4v?utm_source=generator";
+
   function runAway() {
     const maxX = window.innerWidth - yesBtn.offsetWidth - 20;
     const maxY = window.innerHeight - yesBtn.offsetHeight - 20;
-
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
     yesBtn.style.position = 'fixed';
-    yesBtn.style.left = randomX + 'px';
-    yesBtn.style.top = randomY + 'px';
+    yesBtn.style.left = Math.random() * maxX + 'px';
+    yesBtn.style.top = Math.random() * maxY + 'px';
   }
 
   yesBtn.addEventListener('mouseover', runAway);
@@ -128,9 +144,14 @@
     runAway();
   });
 
-  // The No button reveals the message
   noBtn.addEventListener('click', function() {
+    message.textContent = "Since you said no... this one's for you 🎶💕";
     message.style.display = 'block';
+
+    // Load the Spotify player
+    spotifyPlayer.src = SPOTIFY_EMBED_URL;
+    player.style.display = 'block';
+
     noBtn.textContent = 'Okay fine 😌';
     yesBtn.style.display = 'none';
   });
