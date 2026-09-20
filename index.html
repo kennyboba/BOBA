@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Question For You 💕</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    font-family: 'Segoe UI', sans-serif;
+    text-align: center;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+    color: #b3003c;
+    margin-bottom: 40px;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.6);
+    padding: 0 10px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  button {
+    font-size: 1.3rem;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+
+  #yesBtn {
+    background: #ff4d79;
+    color: white;
+    position: relative;
+    transition: all 0.15s ease;
+  }
+
+  #noBtn {
+    background: white;
+    color: #b3003c;
+  }
+
+  #noBtn:active {
+    transform: scale(0.95);
+  }
+
+  #message {
+    margin-top: 30px;
+    font-size: 1.2rem;
+    color: #b3003c;
+    font-weight: bold;
+    display: none;
+  }
+
+  .heart {
+    position: absolute;
+    font-size: 1.5rem;
+    animation: float 6s infinite ease-in-out;
+    opacity: 0.7;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-30px) rotate(15deg); }
+  }
+</style>
+</head>
+<body>
+
+  <span class="heart" style="top:10%; left:10%;">💖</span>
+  <span class="heart" style="top:20%; right:10%; animation-delay:2s;">💕</span>
+  <span class="heart" style="bottom:15%; left:15%; animation-delay:1s;">💗</span>
+  <span class="heart" style="bottom:20%; right:15%; animation-delay:3s;">❤️</span>
+
+  <h1>Do you want me to sing for you? 🎤</h1>
+
+  <div class="buttons">
+    <button id="yesBtn">Yes 😍</button>
+    <button id="noBtn">No 🙈</button>
+  </div>
+
+  <p id="message">Yay! Okay, get ready... 🎶💕</p>
+
+<script>
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const message = document.getElementById('message');
+
+  // The Yes button runs away when trying to click/tap it
+  function runAway() {
+    const maxX = window.innerWidth - yesBtn.offsetWidth - 20;
+    const maxY = window.innerHeight - yesBtn.offsetHeight - 20;
+
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
+
+    yesBtn.style.position = 'fixed';
+    yesBtn.style.left = randomX + 'px';
+    yesBtn.style.top = randomY + 'px';
+  }
+
+  yesBtn.addEventListener('mouseover', runAway);
+  yesBtn.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    runAway();
+  });
+  yesBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    runAway();
+  });
+
+  // The No button reveals the message
+  noBtn.addEventListener('click', function() {
+    message.style.display = 'block';
+    noBtn.textContent = 'Okay fine 😌';
+    yesBtn.style.display = 'none';
+  });
+</script>
+
+</body>
+</html>
