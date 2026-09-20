@@ -17,7 +17,7 @@
     font-family: 'Segoe UI', sans-serif;
     text-align: center;
     padding: 20px;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
   }
 
@@ -70,11 +70,35 @@
     padding: 0 20px;
   }
 
-  #player {
+  #playlist {
     margin-top: 25px;
     width: 100%;
-    max-width: 380px;
+    max-width: 480px;
     display: none;
+    flex-direction: column;
+    gap: 20px;
+    padding-bottom: 40px;
+  }
+
+  .song {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(179, 0, 60, 0.15);
+    text-align: left;
+  }
+
+  .song h3 {
+    font-size: 1rem;
+    color: #b3003c;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .song iframe {
+    width: 100%;
+    border-radius: 10px;
+    display: block;
   }
 
   .heart {
@@ -82,6 +106,7 @@
     font-size: 1.5rem;
     animation: float 6s infinite ease-in-out;
     opacity: 0.7;
+    pointer-events: none;
   }
 
   @keyframes float {
@@ -92,10 +117,10 @@
 </head>
 <body>
 
-  <span class="heart" style="top:10%; left:10%;">💖</span>
-  <span class="heart" style="top:20%; right:10%; animation-delay:2s;">💕</span>
-  <span class="heart" style="bottom:15%; left:15%; animation-delay:1s;">💗</span>
-  <span class="heart" style="bottom:20%; right:15%; animation-delay:3s;">❤️</span>
+  <span class="heart" style="top:5%; left:5%;">💖</span>
+  <span class="heart" style="top:10%; right:5%; animation-delay:2s;">💕</span>
+  <span class="heart" style="bottom:5%; left:10%; animation-delay:1s;">💗</span>
+  <span class="heart" style="bottom:10%; right:10%; animation-delay:3s;">❤️</span>
 
   <h1>Do you want me to sing for you? 🎤</h1>
 
@@ -106,25 +131,60 @@
 
   <p id="message"></p>
 
-  <!-- 🎵 SPOTIFY EMBED — Perfect by Ed Sheeran -->
-  <div id="player">
-    <iframe id="spotifyPlayer"
-            style="border-radius:12px"
-            src=""
-            width="100%" height="152" frameborder="0"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy"></iframe>
+  <!-- 🎵 PLAYLIST (YouTube embeds — work worldwide) -->
+  <div id="playlist">
+
+    <!-- 1. Simi - Joromi -->
+    <div class="song">
+      <h3>💕 Joromi — Simi</h3>
+      <iframe width="100%" height="200"
+              src="https://www.youtube.com/embed/UPsGur0wFbE"
+              title="Simi - Joromi"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+
+    <!-- 2. Adekunle Gold - Orente -->
+    <div class="song">
+      <h3>🌹 Orente — Adekunle Gold</h3>
+      <iframe width="100%" height="200"
+              src="https://www.youtube.com/embed/sJcIn2TwdY0"
+              title="Adekunle Gold - Orente"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+
+    <!-- 3. Chike ft. Simi - Running (To You) -->
+    <div class="song">
+      <h3>🏃 Running (To You) — Chike ft. Simi</h3>
+      <iframe width="100%" height="200"
+              src="https://www.youtube.com/embed/tUo-2NvI9sU"
+              title="Chike ft. Simi - Running To You"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+
+    <!-- 4. Alhaji Sikiru Ayinde Barrister - Ife Bi Eji Owuro -->
+    <div class="song">
+      <h3>💫 Ife Bi Eji Owuro — Alhaji Sikiru Ayinde Barrister</h3>
+      <iframe width="100%" height="200"
+              src="https://www.youtube.com/embed/Q6V3fXp0rHc"
+              title="Ife Bi Eji Owuro - Alhaji Sikiru Ayinde Barrister"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+
   </div>
 
 <script>
   const yesBtn = document.getElementById('yesBtn');
   const noBtn = document.getElementById('noBtn');
   const message = document.getElementById('message');
-  const player = document.getElementById('player');
-  const spotifyPlayer = document.getElementById('spotifyPlayer');
-
-  // 🎵 Perfect by Ed Sheeran on Spotify
-  const SPOTIFY_EMBED_URL = "https://open.spotify.com/embed/track/0tgVpDi06FyKpA1z0VMD4v?utm_source=generator";
+  const playlist = document.getElementById('playlist');
 
   function runAway() {
     const maxX = window.innerWidth - yesBtn.offsetWidth - 20;
@@ -145,13 +205,9 @@
   });
 
   noBtn.addEventListener('click', function() {
-    message.textContent = "Since you said no... this one's for you 🎶💕";
+    message.textContent = "Since you said no... here are songs straight from my heart 🎶💕";
     message.style.display = 'block';
-
-    // Load the Spotify player
-    spotifyPlayer.src = SPOTIFY_EMBED_URL;
-    player.style.display = 'block';
-
+    playlist.style.display = 'flex';
     noBtn.textContent = 'Okay fine 😌';
     yesBtn.style.display = 'none';
   });
